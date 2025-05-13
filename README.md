@@ -39,3 +39,5 @@
   - **Django를 활용한 웹페이지 구축** : 정가온
   - **데이터 시각화 자료 및 발표 피피티 제작** : 오승윤
   - **다음 회의 일정** : 5/15 파이썬 수업 후
+
+**페이지 UI : [figma](https://www.figma.com/design/EVlEsAvssMzduNOMQqq03p/Data-Visualization-Package--Community---Community-?m=auto&t=EaSnN1FVl4JoH4ck-6)**
