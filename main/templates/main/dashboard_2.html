@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>교통사고 대시보드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 font-sans text-white" style="background-color: #001A33;">
+  <!-- 헤더 -->
+  <header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+      <div class="w-10 h-10 bg-teal-500 rounded-full"></div>
+      <div>
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+        <p class="text-sm text-gray-300" id="today-date">오늘 날짜는 로딩 중...</p>
+      </div>
+    </div>
+    <div>
+      <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60" />
+    </div>
+  </header>
+
+  <!-- 뉴스 카드 영역 -->
+<section class="grid grid-cols-2 gap-6 mb-6">
+  <div class="p-4 h-29 rounded-xl shadow-sm" style="background-color: #102A43;">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xl mb-2" style="background-color:#FFEDE8">🔥</div>
+    <h3 class="font-bold text-white">마포구</h3>
+    <p class="text-sm text-gray-300">서울시 기준 마포구에서 가장 많은 횟수의 교통사고가 발생했습니다.</p>
+  </div>
+  <div class="p-4 h-29 rounded-xl shadow-sm" style="background-color: #102A43;">
+    <h3 class="font-bold text-white">우리 지역구는 몇 위?</h3>
+    <p class="text-sm text-gray-300">우리 지역구는 교통사고고부터 얼마나 안전한가?</p>
+    <button class="text-sm text-blue-300 mt-2">바로가기 >></button>
+  </div>
+</section>
+
+
+
+  <!-- 그래프 영역 1 -->
+   <section class="grid grid-cols-[1fr_2fr] gap-4 mb-6">
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+      <h2 class="font-bold mb-2">교통 사고 유형</h2>
+      <div class="text-black h-48 bg-gray-200 flex items-center justify-center">[레이더 차트 자리]</div>
+    </div>
+    <div class="p-4  rounded-xl shadow-sm" style="background-color: #102A43;">
+      <h2 class="font-bold mb-2">서울시 교통사고 발생 횟수 연도별 추이</h2>
+      <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+      <div class="text-black h-48 bg-gray-200 flex items-center justify-center">[스캐터 차트 자리]</div>
+    </div>
+  </section>
+
+  <!-- 그래프 영역 2 -->
+  <section class="grid grid-cols-[1.2fr_1fr_1fr] gap-4">
+    <div class=" p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+      <h2 class="font-bold mb-2">서울시 교통사고 원인</h2>
+      <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+      <div class="text-black h-40 bg-gray-200 flex items-center justify-center">[파이 차트 자리]</div>
+    </div>
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+      <h2 class="font-bold mb-2" >지역구별 대형 교통사고 횟수</h2>
+      <p class="text-sm text-gray-500 mb-2">2025년</p>
+      <div class="text-black h-40 bg-gray-200 flex items-center justify-center">[막대 차트 자리]</div>
+    </div>
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+      <h2 class="font-bold mb-2">00구 요일&시간대별 사고 발생</h2>
+      <p class="text-sm text-gray-500 mb-2">2024년 기준</p>
+      <div class="text-black h-40 bg-gray-200 flex items-center justify-center">[히트맵 자리]</div>
+    </div>
+  </section>
+</body>
+
+<script>
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  const dateString = `오늘 날짜는 ${year}년 ${month}월 ${day}일입니다.`;
+  document.getElementById("today-date").textContent = dateString;
+</script>
+
+</html>
