@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>홍수 대시보드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>초기 세팅</h1>
+<body class="bg-gray-50 p-6 font-sans">
+  <!-- 헤더 -->
+  <header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+      <div class="w-10 h-10 bg-teal-500 rounded-full"></div>
+      <div>
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+        <p class="text-sm text-gray-500" id="today-date">오늘 날짜는 로딩 중...</p>
+      </div>
+    </div>
+    <div>
+      <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60" />
+    </div>
+  </header>
+
+  <!-- 뉴스 카드 영역 -->
+  <section class="grid grid-cols-4 gap-4 mb-6">
+    <div class="bg-yellow-100 p-4 rounded-xl shadow-sm">🔥 최근 5년간 홍수 발생 횟수<br /><strong class="text-xl">15회</strong></div>
+    <div class="bg-purple-100 p-4 rounded-xl shadow-sm">📷 서울시에서 발생한 홍수 사례</div>
+    <div class="bg-orange-100 p-4 rounded-xl shadow-sm">❓ 대한민국 홍수에 대하여... A to Z</div>
+    <div class="bg-pink-100 p-4 rounded-xl shadow-sm">💡 AI ‘이든길’이 알려주는 홍수 안전예방법</div>
+  </section>
+
+  <!-- 그래프 영역 1 -->
+  <section class="grid grid-cols-2 gap-4 mb-6">
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+      <h2 class="font-bold mb-2">서울시 연도별 홍수 발생 횟수</h2>
+      <div class="h-48 bg-gray-200 flex items-center justify-center">[그래프 자리]</div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+      <h2 class="font-bold mb-2">서울시 배수 시설 정보</h2>
+      <div class="h-48 bg-gray-200 flex items-center justify-center">[도넛 차트 자리]</div>
+    </div>
+  </section>
+
+  <!-- 그래프 영역 2 -->
+  <section class="grid grid-cols-3 gap-4">
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+      <h2 class="font-bold mb-2">00구 지형 데이터(DEM)</h2>
+      <p class="text-sm text-gray-500 mb-2">2025년 기준</p>
+      <div class="h-40 bg-gray-200 flex items-center justify-center">[히트맵]</div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+      <h2 class="font-bold mb-2">00구 지하 공간 정보</h2>
+      <div class="h-40 bg-gray-200 flex items-center justify-center">[도넛 차트]</div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+      <h2 class="font-bold mb-2">00구 강우량 데이터</h2>
+      <p class="text-sm text-gray-500 mb-2">요일별 시각적 강우량</p>
+      <div class="h-40 bg-gray-200 flex items-center justify-center">[막대 차트]</div>
+    </div>
+  </section>
 </body>
+
+<script>
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  const dateString = `오늘 날짜는 ${year}년 ${month}월 ${day}일입니다.`;
+  document.getElementById("today-date").textContent = dateString;
+</script>
+
 </html>
