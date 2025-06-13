@@ -336,4 +336,42 @@ data_B_project/
 
 ### 🖼️ 데이터 시각화
 
+<details>
+  <summary>🕳️ 지반침하</summary>
 
+  ### 싱크홀
+
+  ![싱크홀](ScreenShots/(1)싱크홀.png)
+
+  ### 싱크홀 자치구별
+
+  ![싱크홀_자치구](ScreenShots/(2)싱크홀-자치구.png)
+</details>
+<details>
+  <summary>💥 교통사고</summary>
+
+  ### 사고 유형
+
+  ![사고 유형](ScreenShots/(3)교통사고-사고유형.png)
+
+  ### 발생 건수
+
+  ![발생 건수](ScreenShots/(4)교통사고-발생건수.png)
+
+  ### 히트맵
+
+  ![히트맵](ScreenShots/(5)교통사고-히트맵.png)
+
+  ### 원인
+
+  ![원인](ScreenShots/(6)교통사고-원인.png)
+</details>
+<details>
+  <summary>🌧️ 상습침수</summary>
+  
+</details>
+<details>
+  <summary>❄️ 도로결빙</summary>
+
+  
+</details>
