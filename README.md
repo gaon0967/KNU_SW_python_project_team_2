@@ -1,13 +1,148 @@
-# KNU_SW_python_project_team_2
+# 💯 KNU_SW_python_project_team_2
+## 💬 주제 : 교통 안전 취약 지역 발굴
+### 👤 팀원 : 오승윤, 이상민, 정가온, 허민영
+---
+### 📙 프로젝트의 목적 및 주요 기능 설명
+**🎯 목적**  
+교통 안전이 취약한 곳을 조사한 후 시각화하여 사람들이 더욱 안전하게 길을 다닐 수 있게 하도록 하였습니다.  
+**✨ 기능**  
 
-### 팀원 : 오승윤, 이상민, 정가온, 허민영
+### 🧰 환경 구축 + 기능 구성 총정리
+📦 설치 및 실행 방법
 
-1. 프로젝트의 목적 및 주요 기능 설명
-2. 설치 및 실행 방법
-3. 사용된 라이브러리
+<details>
+  <summary>📚 사용된 라이브러리 </summary>
 
 ---
-## 첫번째 회의 내용
+
+### 📦 웹 개발 및 Django 관련
+
+| 라이브러리 | 설명 |
+|------------|------|
+| Django     | Python 대표 웹 프레임워크. 웹 페이지, API, DB 관리 등 전반적인 백엔드 처리 |
+| sqlparse   | Django 내부에서 SQL 구문을 파싱할 때 사용됨 |
+| asgiref    | Django의 비동기 처리 지원 라이브러리 |
+
+---
+
+### 🧠 머신러닝 및 모델 관련
+
+| 라이브러리 | 설명 |
+|------------|------|
+| xgboost         | 고성능 머신러닝 모델(XGBoost 회귀/분류) 라이브러리 |
+| scikit-learn    | ML 알고리즘과 전처리, 모델 평가 기능 제공 |
+| joblib          | 학습된 모델을 `.pkl`로 저장/불러오기 위해 사용 |
+| numpy, scipy    | 수치 연산, 선형대수 계산 필수 기반 라이브러리 |
+| threadpoolctl, threading, tenacity | 병렬 계산 및 내구성 보완용 (간접 사용) |
+
+---
+
+### 🗂 데이터 처리 및 분석
+
+| 라이브러리 | 설명 |
+|------------|------|
+| pandas               | 표 형태의 데이터 처리 (CSV, Excel 등) |
+| openpyxl, et_xmlfile | Excel(xlsx) 파일 처리용 백엔드 |
+| matplotlib, seaborn  | 데이터 시각화 (차트, 히트맵 등) |
+| pyarrow              | 빠른 I/O 및 파일 포맷 처리 (예: Parquet) |
+
+---
+
+### 🧭 지도 및 위치 데이터 분석
+
+| 라이브러리 | 설명 |
+|------------|------|
+| folium                              | Leaflet.js 기반의 지도 시각화 (HTML 지도 생성) |
+| geopandas                           | 지리정보(GIS) 데이터를 Pandas처럼 처리 |
+| shapely                             | 공간 연산 (교차, 면적, 경계 등) 수행 |
+| pyproj                              | 위경도 좌표계 변환 |
+| rasterio, affine, mercantile, contextily, branca, xyzservices | 공간 타일맵, 배경지도, GeoTIFF 렌더링용 도구들 |
+
+---
+
+### 🌐 크롤링 / 웹 자동화
+
+| 라이브러리 | 설명 |
+|------------|------|
+| beautifulsoup4       | HTML 구조 파싱 및 정보 추출 |
+| requests             | 웹사이트에 요청 보내기 (GET, POST 등) |
+| lxml                 | 빠른 HTML/XML 파싱을 위한 parser |
+| selenium, webdriver-manager | 브라우저 자동화 도구 (동적 페이지 크롤링 시 사용) |
+
+---
+
+### 🧪 개발 보조 / 콘솔 / 노트북 환경
+
+| 라이브러리 | 설명 |
+|------------|------|
+| ipython, ipykernel, jupyter_* | Jupyter Notebook 실행 환경 |
+| tqdm                        | 반복문 진행 상황 시각화 |
+| colorama                    | 터미널 컬러 출력 지원 |
+| python-dotenv              | `.env` 파일로 환경변수 관리 |
+| watchdog                   | 파일 변화 감지 (개발 자동화 도구에 사용됨) |
+
+</details>
+
+<details>
+  <summary>📁 프로젝트 폴더 구조 보기</summary>
+
+data_B_project/  
+├── .venv/  
+│ └── 💡 가상환경 (패키지 충돌 방지 및 협업 목적)  
+│ - 필요한 라이브러리만 설치 가능  
+│ - requirements.txt로 공유 및 관리 용이  
+
+├── data/  
+│ ├── people/ 📊 서울시 자치구별 인구수  
+│ ├── traffic accident/ 🚗 교통사고 연도별 Excel (2019~2023)  
+│ ├── Traffic light/ 🚦 신호등 및 횡단보도 위치  
+│ └── 기타 참고 데이터 포함  
+
+├── dataAnalysis1.ipynb  
+│ └── 📈 초기 데이터 분석용 Jupyter 노트북 (pandas, 시각화, 병합 등 실험)  
+
+├── ngrok/  
+│ └── 🌐 ngrok 실행 및 설정  
+│ ① make.com 워크플로우용 웹훅 연동  
+│ ② 외부 접근 가능한 임시 URL 제공  
+│ ③ 로컬 서버 테스트 자동화를 위한 브리지 역할  
+
+├── emergency_contacts_to_sqlite.py  
+│ └── 🚑 응급기관 JSON → SQLite 저장 스크립트  
+│ - 행정안전부 API 기반 254개 기관 정보 수집  
+
+├── real_python_project/  
+│ ├── db.sqlite3 📦 기본 장고 DB  
+│ ├── emergency_agencies.db 🏥 응급기관 DB  
+│ ├── final_merged_with_coords.csv ✅ 병합 완료된 최종 CSV  
+│ 
+│ ├── main/ 💻 Django 앱 구성  
+│ │ ├── models.py 모델 정의 (Post, DailyUpdate 등)  
+│ │ ├── views.py 요청 처리, API 연동  
+│ │ ├── forms.py 사용자 입력 폼  
+│ │ ├── model_utils.py 자치구 위험도 예측 함수  
+│ │ ├── model_trainer.py모델 학습 + joblib 저장  
+│ │ ├── templates/main/ 템플릿 HTML  
+│ │ │ ├── community.html, dashboard_1~4.html, quiz_start.html, rehome.html 등  
+│ │ ├── static/images/ 분석 결과 시각화 이미지  
+│ │ └── migrations/ DB 마이그레이션  
+
+│ ├── scraper.py 📰 행정안전부 보도자료 크롤링  
+│ ├── model_utils.py 예측 수행 + 설명 반환  
+│ ├── model_trainer.py XGBoost 학습 후 저장  
+│ ├── xgb_model.pkl 저장된 모델  
+
+├── requirements.txt 📦 필요한 패키지 목록  
+└── README.md 📘 프로젝트 설명, 실행 방법, 구성도  
+</details>
+
+🖥️ 실행 화면 
+
+---
+
+### 🤝 회의 내용
+<details>
+<summary> 📌 첫 번째 회의 내용 </summary>
 
 1. 웹 페이지 UI 공유하기
   
@@ -39,6 +174,62 @@
   - **Django를 활용한 웹페이지 구축** : 정가온
   - **데이터 시각화 자료 및 발표 피피티 제작** : 오승윤
   - **다음 회의 일정** : 5/15 파이썬 수업 후
+</details>
+<details>
+  <summary>📌 두 번째 회의 내용 (5/15) </summary>
+
+  - 데이터 수집 목록 확인
+  - 추가 데이터 있는지 살펴보기
+      - 추가 데이터 있을 시 조건
+      1. 추가 데이터 목록을 모두와 공유하기
+      2. 추가 데이터도 동일하게 다같이 모아야함
+  - 웹 프로토타입 살펴보기
+  - 다음주까지 해와야 할 것들
+      - 승윤: 이든길 가이드라인 표 작성하기
+      - 민영, 상민: 싱크홀 및 지반침하 데이터 분석 완료 파일 완성해서 오기
+      - 가온: 웹 페이지 4개 HTML로 작성하기
+</details>
+<details>
+  <summary>📌 세 번째 회의 내용 (5/18) </summary>
+  
+  - 데이터 수집 결과 공유
+  - 가이드라인 작성한 것 공유
+  - 웹 페이지 어디까지 진행했는지 공유
+  - 데이터 분석 오늘부터 시작
+
+  - 화요일까지 웹페이지 담당자 : 웹페이지 두개 구축
+  - 데이터 분석 담당자 : 다음주 목요일까지 싱크홀 분석
+</details>
+<details>
+  <summary>📌 네 번째 회의 내용 (5/22) </summary>
+
+  - 웹 페이지 구축 2개 확인하기
+  - 데이터 분석 파트 나눈 거 이야기하기
+  - 데이터 분석 현황
+
+  - 다음주 목요일까지
+  - 민영: 싱크홀 .ipynb파일 -> 시각화한테 넘기기
+  - 상민: .ipynb파일 -> 시각화한테 넘기기
+  - 가온: 파일 4개 구축하기
+  - 승윤: 시각화 시작
+</details>
+<details>
+  <summary>📌 다섯 번째 회의 내용 (6/3) </summary>
+  
+  - 승윤, 상민: 시각화 자료 넘겨받으면 시각화 할 수 있는 데까지 해오기
+  - 가온: 장고로 메인 페이지 제작, 4개 페이지 연결, 가능하면 가이드라인 버튼까지.
+  - 민영: 싱크홀 최대한 해오기
+
+  - 위 기능 검사하기
+</details>
+<details>
+  <summary>📌 마지막 회의 내용 (6/12) </summary>
+  
+  - 웹 페이지 전체 확인하기
+  - 깃허브 다시 꾸미기
+  - 배포 여부
+  - 피피티 제작 및 발표 준비하기
+</details>
 
 **페이지 UI : [figma](https://www.figma.com/design/EVlEsAvssMzduNOMQqq03p/Data-##Visualization-Package--Community---Community-?m=auto&t=EaSnN1FVl4JoH4ck-6)**
 
