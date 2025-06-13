@@ -87,7 +87,8 @@
 
 <details>
   <summary>📁 프로젝트 폴더 구조 보기</summary>
-
+  
+```
 data_B_project/  
 ├── .venv/  
 │ └── 💡 가상환경 (패키지 충돌 방지 및 협업 목적)  
@@ -135,7 +136,8 @@ data_B_project/
 │ ├── xgb_model.pkl 저장된 모델  
 
 ├── requirements.txt 📦 필요한 패키지 목록  
-└── README.md 📘 프로젝트 설명, 실행 방법, 구성도  
+└── README.md 📘 프로젝트 설명, 실행 방법, 구성도
+```
 </details>
 
 🖥️ 실행 화면 
