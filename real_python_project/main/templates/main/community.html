@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이든길 커뮤니티</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .sidebar { /* 기존 사이드바 스타일이 있다면 여기에 */ }
+    .content { margin-left: 260px; padding: 40px; }
+    .post-content { white-space: pre-wrap; }
+  </style>
+</head>
+<body class="bg-[#f6ede6] font-sans">
+
+  <!-- 사이드바 (필요하면 재사용) -->
+  <aside class="sidebar fixed top-0 left-0 bottom-0 w-64 bg-gray-800 text-white p-6">
+    <div class="logo mb-8">
+      <a href="{% url 'home' %}" class="text-2xl font-bold">당신의 안전은 이든길</a>
+    </div>
+    <nav class="space-y-4">
+      <a href="{% url 'dashboard_1' %}" class="block hover:text-yellow-400">지반침하</a>
+      <a href="{% url 'dashboard_2' %}" class="block hover:text-yellow-400">교통사고</a>
+      <a href="{% url 'dashboard_3' %}" class="block hover:text-yellow-400">상습 침수 구역</a>
+      <a href="{% url 'dashboard_4' %}" class="block hover:text-yellow-400">도로 결빙 구역</a>
+      <a href="{% url 'community' %}" class="block text-yellow-400">이든길 커뮤니티</a>
+      <a href="{% url 'quiz_start' %}" class="block hover:text-yellow-400">이든길 심리테스트</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+    <!-- 새 글 쓰기 폼 -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-center">📌 새 글 작성하기</h2>
+      <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              {{ form.category.label_tag }}  
+              {{ form.category }}
+            </div>
+            <div>
+              {{ form.name.label_tag }}  
+              {{ form.name }}
+            </div>
+            <div>
+              {{ form.gender.label_tag }}  
+              {{ form.gender }}
+            </div>
+            <div>
+              {{ form.age.label_tag }}  
+              {{ form.age }}
+            </div>
+            <div class="md:col-span-2">
+              {{ form.region.label_tag }}  
+              {{ form.region }}
+            </div>
+            <div class="md:col-span-2">
+              {{ form.email.label_tag }}  
+              {{ form.email }}
+            </div>
+            <div class="md:col-span-2">
+              {{ form.title.label_tag }}  
+              {{ form.title }}
+            </div>
+            <div class="md:col-span-2">
+              {{ form.content.label_tag }}  
+              {{ form.content }}
+            </div>
+          </div>
+          <button type="submit"
+                  class="mt-8 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 rounded-xl hover:from-blue-600 hover:to-indigo-600 transition">
+            ✨ 등록하기
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 게시글 목록 -->
+    <section>
+      <h2 class="text-3xl font-bold mb-6 text-center">📝 커뮤니티 게시글</h2>
+      <div class="max-w-6xl mx-auto space-y-8">
+        {% for post in posts %}
+          <div class="bg-white p-6 rounded-xl shadow">
+            <h3 class="text-xl font-semibold">{{ post.title }}</h3>
+            <p class="text-sm text-gray-500 mt-1">
+              {{ post.get_category_display }} | 작성자: {{ post.name }} | {{ post.created_at|date:"Y-m-d H:i" }}
+            </p>
+            <div class="mt-4 post-content text-gray-800">
+              {{ post.content }}
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-center text-gray-600">아직 작성된 글이 없습니다.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

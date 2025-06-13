@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>싱크홀 및 지반 침하 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-6 font-sans">
+
+<!-- 상단 헤더 -->
+<header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 bg-cyan-600 rounded-full"></div>
+        <div>
+            <h1 class="text-2xl font-bold">Dashboard</h1>
+            <p class="text-sm text-gray-500" id="today-date">오늘 날짜는 로딩 중...</p>
+        </div>
+    </div>
+    <div>
+        <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60"/>
+    </div>
+</header>
+
+<!-- 1. 서울시 전체 자료 섹션 -->
+<section class="mb-6 p-4 bg-white rounded-xl shadow-sm">
+    <h2 class="font-semibold text-xl mb-4">서울시 전체 싱크홀 및 관련 데이터</h2>
+    <div class="grid grid-cols-3 gap-4 ">
+        <!-- 서울시 연도별 싱크홀 발생 추이 -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">서울시 연도별 싱크홀 발생 추이</h3>
+            <img src="/static/images/싱크홀 시각화/서울시 싱크홀 년도별 발생 추이.png"
+                 alt="서울시 연도별 싱크홀 발생 추이"
+                 class="w-full h-64 object-contain"/>
+        </div>
+
+        <!-- 서울시 월별 싱크홀 발생 추이 (추가 이미지 자리) -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">서울시 월별 싱크홀 발생 추이</h3>
+            <img src="/static/images/싱크홀 시각화/서울시 싱크홀 월별 발생 추이.png"
+                 alt="서울시 월별 싱크홀 발생 추이"
+                 class="w-full h-64 object-contain"/>
+        </div>
+
+        <!-- 싱크홀 발생원인 버블차트 -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">싱크홀 발생원인 버블차트</h3>
+            <img src="/static/images/싱크홀 시각화/싱크홀 발생원인 버블차트.png"
+                 alt="싱크홀 발생원인 버블차트"
+                 class="w-full h-64 object-contain"/>
+        </div>
+
+        <!-- 자치구별 도로 공사 건수 -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">자치구별 도로 공사 건수</h3>
+            <img src="/static/images/싱크홀 시각화/자치구별 도로 공사 건수.png"
+                 alt="자치구별 도로 공사 건수"
+                 class="w-full h-64 object-contain"/>
+        </div>
+
+        <!-- 자치구별 싱크홀 발생건수 -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">자치구별 싱크홀 발생건수</h3>
+            <img src="/static/images/싱크홀 시각화/자치구별 싱크홀 발생건수.png"
+                 alt="자치구별 싱크홀 발생건수"
+                 class="w-full h-64 object-contain"/>
+        </div>
+
+        <!-- 자치구별 지하수 이용량 -->
+        <div class="bg-gray-100 p-2 rounded shadow">
+            <h3 class="font-bold mb-2 text-sm">자치구별 지하수 이용량</h3>
+            <img src="/static/images/싱크홀 시각화/자치구별 지하수 이용량.png"
+                 alt="자치구별 지하수 이용량"
+                 class="w-full h-64 object-contain"/>
+        </div>
+    </div>
+</section>
+
+<!-- 2. 자치구별 지하수 시설 및 히트맵 섹션 -->
+<section class="mb-6 p-4 bg-white rounded-xl shadow-sm">
+    <h2 class="font-semibold text-xl mb-4" id="district-title">자치구별 지하시설 및 지도맵</h2>
+
+    <!-- 자치구별 지하수 시설 이미지 영역 -->
+    <div id="district-wells" class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-gray-100 p-4 rounded shadow flex flex-col items-center justify-center">
+            <h3 class="font-bold mb-2">지하수 시설 -
+                <select id="district-select" class="mb-4 p-2 border rounded">
+                    <option value="강남구">강남구</option>
+                    <option value="강동구">강동구</option>
+                    <option value="강북구">강북구</option>
+                    <option value="강서구">강서구</option>
+                    <option value="관악구">관악구</option>
+                    <option value="광진구">광진구</option>
+                    <option value="구로구">구로구</option>
+                    <option value="금천구">금천구</option>
+                    <option value="노원구">노원구</option>
+                    <option value="도봉구">도봉구</option>
+                    <option value="동대문구">동대문구</option>
+                    <option value="동작구">동작구</option>
+                    <option value="마포구">마포구</option>
+                    <option value="서대문구">서대문구</option>
+                    <option value="서초구">서초구</option>
+                    <option value="성동구">성동구</option>
+                    <option value="성북구">성북구</option>
+                    <option value="송파구">송파구</option>
+                    <option value="양천구">양천구</option>
+                    <option value="영등포구">영등포구</option>
+                    <option value="용산구">용산구</option>
+                    <option value="은평구">은평구</option>
+                    <option value="종로구">종로구</option>
+                    <option value="중구">중구</option>
+                    <option value="중랑구">중랑구</option>
+                </select>
+            </h3>
+
+            <div class="h-80  flex items-center justify-center">
+                <img id="district-image" src="/static/images/싱크홀 시각화/자치구별 지하수시설/강남구.png"
+                     alt="관측소 이미지" class="h-80 w-auto max-w-full object-scale-down rounded-lg"/>
+            </div>
+        </div>
+
+
+        <!-- zoomable 히트맵 iframe -->
+        <div class="bg-gray-100 rounded shadow overflow-hidden">
+            <iframe id="district-heatmap"
+                    src="/static/images/싱크홀 시각화/seoul_sinkhole_heatmap_zoomable.html"
+                    class="w-full h-96" frameborder="0"></iframe>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded">홈 화면으로 이동</button>
+</a>
+
+
+<!-- 날짜 표시 스크립트 -->
+<script>
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    document.getElementById("today-date").textContent = `오늘 날짜는 ${year}년 ${month}월 ${day}일입니다.`;
+
+    const image = document.getElementById('district-image');
+    const select = document.getElementById('district-select');
+
+    select.addEventListener('change', function () {
+        const districtName = this.value;
+        // 이미지 경로 규칙이 이름.png 형태일 때
+        image.src = `/static/images/싱크홀 시각화/자치구별 지하수시설/${districtName}.png`;
+        image.alt = `${districtName} 지하수 시설`;
+    });
+
+</script>
+

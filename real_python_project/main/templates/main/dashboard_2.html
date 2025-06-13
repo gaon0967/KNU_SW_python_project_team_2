@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>교통사고 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 font-sans text-white" style="background-color: #001A33;">
+<header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 bg-teal-500 rounded-full"></div>
+        <div>
+            <h1 class="text-2xl font-bold">Dashboard</h1>
+            <p class="text-sm text-gray-300" id="today-date">오늘 날짜는 로딩 중...</p>
+        </div>
+    </div>
+    <div>
+        <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60"/>
+    </div>
+</header>
+
+<section class="grid grid-cols-2 gap-6 mb-6">
+    <div class="p-4 h-29 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xl mb-2" style="background-color:#FFEDE8">
+            🔥
+        </div>
+        <h3 class="font-bold text-white">서울시 교통사고</h3>
+        <p class="text-sm text-gray-300">서울시에서 일어나는 교통사고를 알아보세요!</p>
+    </div>
+   <div class="p-4 h-29 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h3 class="font-bold text-white">우리 지역구는 몇 위?</h3>
+        <p class="text-sm text-gray-300">우리 지역구는 교통사고로부터 얼마나 안전한가?</p>
+        <a href="{% url 'safety_check' %}">바로가기</a>
+    </div>
+</section> <section class="grid grid-cols-[1fr_2fr] gap-4 mb-6">
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">
+            <select id="district-select-type" class="mb-4 p-2 border rounded" style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강북구">강북구</option>
+                <option value="강서구">강서구</option>
+                <option value="관악구">관악구</option>
+                <option value="광진구">광진구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="성동구">성동구</option>
+                <option value="성북구">성북구</option>
+                <option value="송파구">송파구</option>
+                <option value="양천구">양천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            교통 사고 유형
+        </h2>
+        <div class="text-black h-64 #2C3E50 flex items-center justify-center">
+            <img id="district-image" src="/static/images/교통사고 시각화/사고유형 시각화/강남구 사고유형.png" alt="사고유형"
+                class="h-full object-contain"/>
+        </div>
+    </div>
+    <div class="p-4   rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">
+            <select id="district-select-year" class="mb-4 p-2 border rounded " style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강북구">강북구</option>
+                <option value="강서구">강서구</option>
+                <option value="관악구">관악구</option>
+                <option value="광진구">광진구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="성동구">성동구</option>
+                <option value="성북구">성북구</option>
+                <option value="송파구">송파구</option>
+                <option value="양천구">양천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            교통사고 발생 횟수 연도별 추이
+        </h2>
+        <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+        <div class="text-black h-64 #2C3E50 flex items-center justify-center">
+            <img id="yearlyCountImage" src="/static/images/교통사고 시각화/자치구_연도별_발생건수/강남구_발생건수_꺾은선그래프.png" alt="연도별 추이"
+                class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<section class="grid grid-cols-[1.2fr_1fr_1fr] gap-4">
+    <div class=" p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">
+            <select id="district-select-wonin" class="mb-4 p-2 border rounded" style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강북구">강북구</option>
+                <option value="강서구">강서구</option>
+                <option value="관악구">관악구</option>
+                <option value="광진구">광진구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="성동구">성동구</option>
+                <option value="성북구">성북구</option>
+                <option value="송파구">송파구</option>
+                <option value="양천구">양천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            교통사고 원인
+        </h2>
+        <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+        <div class="text-black h-80 #2C3E50 flex items-center justify-center">
+            <img id="woninImage" src="/static/images/교통사고 시각화/최근 5년 교통사고 원인 비율/강남구.png" alt="사고 원인 비율" class="h-full object-contain"/>
+        </div>
+    </div>
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 id="big" class="font-bold mb-2">
+            <select id="district-select-big" class="mb-4 p-2 border rounded" style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강북구">강북구</option>
+                <option value="강서구">강서구</option>
+                <option value="관악구">관악구</option>
+                <option value="광진구">광진구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="성동구">성동구</option>
+                <option value="성북구">성북구</option>
+                <option value="송파구">송파구</option>
+                <option value="양천구">양천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            대형 교통사고 횟수</h2>
+        <p class="text-sm text-gray-500 mb-2">2025년</p>
+        <div class="text-black h-80 #2C3E50 flex items-center justify-center">
+            <img id="bigImage" src="/static/images/교통사고 시각화/최근 5년 자치구별 사상자 비율/강남구.png" alt="사상자 비율" class="h-full object-contain"/>
+        </div>
+    </div>
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">
+            <select id="district-select-heatmap" class="mb-4 p-2 border rounded" style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강북구">강북구</option>
+                <option value="강서구">강서구</option>
+                <option value="관악구">관악구</option>
+                <option value="광진구">광진구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="성동구">성동구</option>
+                <option value="성북구">성북구</option>
+                <option value="송파구">송파구</option>
+                <option value="양천구">양천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="용산구">용산구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            요일&시간대별 사고 발생</h2>
+        <p class="text-sm text-gray-500 mb-2">2024년 기준</p>
+        <div class="text-black h-80 #2C3E50 flex items-center justify-center">
+            <img id="heatmapImage" src="/static/images/교통사고 시각화/자치구별_요일별_시간대별 히트맵/강남구_교통사고_히트맵_최종_확정.png" alt="히트맵" class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded">홈 화면으로 이동</button>
+</a>
+</body>
+
+
+<script>
+    const today = new Date();
+    document.getElementById("today-date").textContent = `오늘 날짜는 ${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일입니다.`;
+
+    const typeSelect = document.getElementById('district-select-type');
+    const accidentTypeImage = document.getElementById('district-image');
+    typeSelect.addEventListener('change', function () {
+        const districtName = this.value;
+        accidentTypeImage.src = `/static/images/교통사고 시각화/사고유형 시각화/${districtName} 사고유형.png`;
+        accidentTypeImage.alt = `${districtName} 사고유형`;
+    });
+
+    const yearSelect = document.getElementById('district-select-year');
+    const yearlyCountImage = document.getElementById('yearlyCountImage');
+    yearSelect.addEventListener('change', function () {
+        const districtName = this.value;
+        yearlyCountImage.src = `/static/images/교통사고 시각화/자치구_연도별_발생건수/${districtName}_발생건수_꺾은선그래프.png`;
+        yearlyCountImage.alt = `${districtName} 연도별 교통사고 발생 추이`;
+    });
+
+    const woninSelect = document.getElementById('district-select-wonin');
+    const woninImage = document.getElementById('woninImage');
+    woninSelect.addEventListener('change', function () {
+        const districtName = this.value;
+        // !!! 여기 woninCountImage 대신 woninImage를 사용해야 합니다.
+        woninImage.src = `/static/images/교통사고 시각화/최근 5년 교통사고 원인 비율/${districtName}.png`;
+        woninImage.alt = `${districtName} 교통사고 원인`;
+    });
+
+    const bigSelect = document.getElementById('district-select-big');
+    const bigImage = document.getElementById('bigImage');
+    bigSelect.addEventListener('change', function () {
+        const districtName = this.value;
+        bigImage.src = `/static/images/교통사고 시각화/최근 5년 자치구별 사상자 비율/${districtName}.png`;
+        bigImage.alt = `${districtName} 대형 교통사고 횟수`;
+    });
+
+    const heatmapSelect = document.getElementById('district-select-heatmap');
+    const heatmapImage = document.getElementById('heatmapImage');
+    heatmapSelect.addEventListener('change', function () {
+        const districtName = this.value;
+        heatmapImage.src = `/static/images/교통사고 시각화/자치구별_요일별_시간대별 히트맵/${districtName}_교통사고_히트맵_최종_확정.png`;
+        heatmapImage.alt = `${districtName} 교통사고 히트맵`;
+    });
+
+</script>
+
+
+</html>

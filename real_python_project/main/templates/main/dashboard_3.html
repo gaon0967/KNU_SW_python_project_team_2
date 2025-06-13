@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>홍수 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 팝업 기본 스타일 (모든 팝업에 적용) */
+        .popup {
+            display: none; /* 초기에는 숨김 */
+            position: fixed; /* 화면에 고정, 스크롤과 무관 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 화면 중앙 정렬 */
+            max-width: 500px; /* 최대 너비 */
+            max-height: 80vh; /* 최대 높이 (뷰포트 높이의 80%) */
+            width: 90%; /* 반응형 너비 */
+            background: #102A43; /* 카드 배경색과 통일 (어두운 색) */
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5); /* 그림자 */
+            z-index: 2000; /* 다른 요소 위에 표시 */
+            overflow-y: auto; /* 내용이 넘치면 스크롤 (필요할 때만) */
+            
+            /* 팝업 내부 콘텐츠 정렬을 위한 flexbox */
+            display: flex; /* JavaScript에서 display:flex로 설정될 때 적용 */
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .popup-header {
+            font-weight: bold;
+            font-size: 1.25rem; /* text-xl */
+            margin-bottom: 15px;
+            color: #FFD526; /* 주황색 강조 */
+            text-align: center; /* 제목 중앙 정렬 */
+        }
+        .popup-content {
+            flex-grow: 1; /* 내용이 남은 공간을 채우도록 */
+            /* overflow-y: auto; 는 .popup에 이미 있어서 중복 제거 */
+        }
+        .popup-content ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .popup-content ul li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #E0E0E0;
+        }
+        .popup-close-btn {
+            background: #60FDF4;
+            color: #102A43;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            display: block; /* 블록 요소로 만들어 중앙 정렬 가능 */
+            margin-top: 20px;
+            margin-left: auto; /* 오른쪽 정렬 */
+            margin-right: auto; /* 중앙 정렬 (flexbox와 함께) */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6 font-sans">
+
+<header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 bg-teal-500 rounded-full"></div>
+        <div>
+            <h1 class="text-2xl font-bold">Dashboard</h1>
+            <p class="text-sm text-gray-500" id="today-date">오늘 날짜는 로딩 중...</p>
+        </div>
+    </div>
+    <div>
+        <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60"/>
+    </div>
+</header>
+
+<section class="grid grid-cols-4 gap-4 mb-6">
+    <div class="bg-yellow-100 p-4 rounded-xl shadow-sm text-gray-800">
+        🔥 서울시에서 일어나는 홍수에 대해서! <br/><strong class="text-xl">밑으로 내리기기</strong>
+    </div>
+
+    <a href="{% url 'community' %}" class="block bg-purple-100 p-4 rounded-xl shadow-sm text-gray-800 hover:bg-purple-200 transition-colors duration-200">
+        <div class=""> 📷 서울시에서 발생한 홍수 사례
+        </div>
+    </a>
+    <div class="bg-orange-100 p-4 rounded-xl shadow-sm text-gray-800 cursor-pointer hover:bg-orange-200 transition-colors duration-200"
+         onclick="toggleFloodHistoryPopup()">
+        ❓ 대한민국 홍수에 대하여... A to Z
+    </div>
+
+    <div class="bg-pink-100 p-4 rounded-xl shadow-sm text-gray-800 cursor-pointer hover:bg-pink-200 transition-colors duration-200"
+         onclick="toggleFloodSafetyPopup()">
+        💡 ‘이든길’이 알려주는 홍수 안전예방법
+    </div>
+</section>
+
+<section class="grid grid-cols-2 gap-4 mb-6">
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+        <h2 class="font-bold mb-2">월별 평균 강수량</h2>
+        <div class="h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/상습침수 시각화/월별_평균_강수량_꺾은선_그래프.png" alt="월별 평균 강수량" class="h-full object-contain"/>
+        </div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+        <h2 class="font-bold mb-2">자치구별 면적 비율</h2>
+        <div class="h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/상습침수 시각화/자치구별 면적 비율.png" alt="자치구별 면적 비율" class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<section class="grid grid-cols-2 gap-4">
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+        <h2 class="font-bold mb-2">관측소별 평균 수위</h2>
+        <select id="station-select" class="mb-4 p-2 border rounded">
+            <option value="계성교">계성교 (서울시 강북구)</option>
+            <option value="고척교">고척교 (서울시 구로구)</option>
+            <option value="광화교">광화교 (서울시 구로구)</option>
+            <option value="기아대교">기아대교 (서울시 금천구)</option>
+            <option value="노원교">노원교 (서울시 노원구)</option>
+            <option value="대곡교">대곡교 (서울시 강남구)</option>
+            <option value="도림교">도림교 (서울시 영등포구)</option>
+            <option value="마장2교">마장2교 (서울시 성동구)</option>
+            <option value="모래말옆">모래말옆 (서울시 도봉구)</option>
+            <option value="봉은교">봉은교 (서울시 강남구)</option>
+            <option value="성동교">성동교 (서울시 성동구)</option>
+            <option value="성산2교">성산2교 (서울시 마포구)</option>
+            <option value="신대방역">신대방역 (서울시 관악구)</option>
+            <option value="월계1교">월계1교 (서울시 노원구)</option>
+            <option value="장월교옆">장월교옆 (서울시 노원구)</option>
+            <option value="증산교">증산교 (서울시 은평구)</option>
+            <option value="탄천2교">탄천2교 (서울시 강남구)</option>
+        </select>
+
+        <div class="h-80 bg-gray-200 flex items-center justify-center">
+            <img id="station-image" src="/static/images/상습침수 시각화/관측소별 평균 수위/계성교.png"
+                 alt="관측소 이미지" class="h-full object-contain" />
+        </div>
+
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm">
+        <h2 class="font-bold mb-2">자치구별 불투수면 비율</h2>
+        <div class="h-80 bg-gray-200 flex items-center justify-center">
+           <img src="/static/images/상습침수 시각화/자치구별 불투수면 비율.png" alt="자치구별 불투수면 비율" class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded">홈 화면으로 이동</button>
+</a>
+
+<div id="floodHistoryPopup" class="popup">
+    <div class="popup-header">❓ 대한민국 역사 속 주요 홍수 사건들</div>
+    <div class="popup-content">
+        <ul>
+            <li>**1925년 을축년 대홍수:** 일제강점기 기록된 가장 큰 홍수 중 하나. 한강 범람으로 서울 도심 대부분이 침수되고 큰 인명 피해가 발생했습니다.</li>
+            <li>**1984년 중부지방 집중호우:** 수도권과 강원 지역에 기록적인 폭우가 쏟아져 많은 이재민과 재산 피해가 발생했습니다.</li>
+            <li>**1987년 8월 대홍수:** 태풍과 장마가 겹치면서 남부지방을 중심으로 큰 피해가 발생, 섬진강 유역의 피해가 특히 컸습니다.</li>
+            <li>**1990년 전국적인 홍수:** 여름 장마와 태풍으로 전국적으로 동시다발적인 홍수 피해가 발생, 농경지 침수와 이재민이 다수 발생했습니다.</li>
+            <li>**2002년 태풍 루사:** 강원도를 중심으로 기록적인 폭우를 동반하여 엄청난 인명 및 재산 피해를 남겼습니다. 역대급 재난 중 하나로 기록됩니다.</li>
+            <li>**2011년 우면산 산사태:** 서울 우면산 일대에 집중호우가 발생하여 산사태로 인한 인명 피해와 주택 침수가 발생했습니다.</li>
+            <li>**2020년 장마철 집중호우:** 중부지방을 중심으로 50일 넘는 긴 장마가 이어지며 누적 강수량이 역대급을 기록, 하천 범람 및 산사태 피해가 컸습니다.</li>
+            <li>**2022년 수도권 집중호우:** 서울 강남 등 수도권 도심에 기록적인 시간당 폭우가 쏟아져 지하철역, 도로, 주택 침수 등 큰 혼란이 발생했습니다.</li>
+        </ul>
+        <p class="text-sm text-gray-400 mt-3">※ 위 내용은 주요 사건의 예시이며, 실제 역사는 더 많은 홍수 피해를 기록하고 있습니다.</p>
+    </div>
+    <button class="popup-close-btn" onclick="closeFloodHistoryPopup()">닫기</button>
+</div>
+
+<div id="floodSafetyPopup" class="popup">
+    <div class="popup-header">💡 ‘이든길’이 알려주는 홍수 안전 예방법</div>
+    <div class="popup-content">
+        <ul>
+            <li>**기상 특보 확인:** 호우 예보 시 TV, 라디오, 스마트폰 앱 등으로 기상 특보를 수시로 확인하세요.</li>
+            <li>**비상 물품 준비:** 손전등, 라디오, 비상식량, 구급약품, 휴대폰 충전기 등을 미리 준비해둡니다.</li>
+            <li>**가스/전기 차단:** 침수 위험이 있을 경우, 주택 내 가스와 전기를 미리 차단합니다.</li>
+            <li>**지하 공간 대피:** 지하 주차장, 반지하 주택 등 지하 공간은 침수 시 매우 위험하므로 즉시 대피합니다.</li>
+            <li>**하천변/계곡 접근 금지:** 갑자기 불어난 물에 휩쓸릴 수 있으니 하천변이나 계곡 주변은 절대 가까이 가지 마세요.</li>
+            <li>**차량 이동 자제:** 침수된 도로는 진입하지 말고, 불가피할 경우 우회하거나 대중교통을 이용합니다.</li>
+            <li>**농경지/시설물 점검:** 비닐하우스, 농경지, 축사 등 시설물을 미리 점검하고 취약 부분은 보강합니다.</li>
+            <li>**대피 경로 확인:** 거주 지역의 대피 장소와 경로를 미리 숙지하고, 재난 시에는 관계 당국의 안내에 따릅니다.</li>
+        </ul>
+        <p class="text-sm text-gray-400 mt-3">※ 이든길은 여러분의 안전을 최우선으로 생각합니다. 재난 발생 시 안전 수칙을 준수하세요.</p>
+    </div>
+    <button class="popup-close-btn" onclick="closeFloodSafetyPopup()">닫기</button>
+</div>
+
+</body>
+
+<script>
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+
+    const dateString = `오늘 날짜는 ${year}년 ${month}월 ${day}일입니다.`;
+    document.getElementById("today-date").textContent = dateString;
+
+    const image = document.getElementById('station-image');
+    const select = document.getElementById('station-select');
+
+    select.addEventListener('change', function () {
+        const stationName = this.value;
+        image.src = `/static/images/상습침수 시각화/관측소별 평균 수위/${stationName}.png`;
+        image.alt = `${stationName} 평균 수위`;
+    });
+
+    // 서울시 홍수 정보 팝업 관련 함수들은 이제 필요 없으므로 제거되었습니다.
+    // toggleSeoulFloodPopup()
+    // closeSeoulFloodPopup()
+
+
+    // 대한민국 홍수 역사 팝업 (토글 기능)
+    function toggleFloodHistoryPopup() {
+        const popup = document.getElementById("floodHistoryPopup");
+        popup.style.display = popup.style.display === "none" ? "flex" : "none"; // flex로 보이게 함
+    }
+
+    function closeFloodHistoryPopup() {
+        document.getElementById("floodHistoryPopup").style.display = 'none';
+    }
+
+    // 홍수 안전 예방법 팝업 (토글 기능)
+    function toggleFloodSafetyPopup() {
+        const popup = document.getElementById("floodSafetyPopup");
+        popup.style.display = popup.style.display === "none" ? "flex" : "none"; // flex로 보이게 함
+    }
+
+    function closeFloodSafetyPopup() {
+        document.getElementById("floodSafetyPopup").style.display = 'none';
+    }
+
+</script>
+
+</html>

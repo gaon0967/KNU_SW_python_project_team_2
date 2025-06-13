@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전관리 일일상황 - 이든길</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 이전 emergency_contacts.html의 다크 테마 스타일과 동일합니다 */
+        :root {
+            --bg-color: #121212;
+            --sidebar-color: #1A1A1A;
+            --card-color: #1E1E1E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #AAAAAA;
+            --border-color: #2A2A2A;
+            --accent-green: #3DFFB5;
+            --accent-pink: #FB72FF;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+        
+        .wrapper { display: flex; }
+        .sidebar {
+            width: 240px; 
+            height: 100vh; 
+            background: var(--sidebar-color);
+            padding: 32px 24px; 
+            position: fixed; 
+            border-right: 1px solid var(--border-color);
+            box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+        }
+        .sidebar .logo a {
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            font-family: 'Nunito Sans', sans-serif;
+            margin-bottom: 3rem; 
+            display: block;
+            color: var(--text-primary); 
+            text-decoration: none;
+        }
+        .sidebar nav a {
+            display: block; 
+            margin: 20px 0; 
+            font-size: 1rem;
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        .sidebar nav a.active, .sidebar nav a:hover { 
+            color: var(--accent-green); 
+        }
+        
+        .content {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            padding: 50px 60px;
+            box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+        }
+        
+        .page-header h1 {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green); /* 페이지 제목 색상 변경 */
+        }
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+        }
+
+        .placeholder-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            border: 2px dashed var(--border-color);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .status-card {
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px 30px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .status-card h3 {
+            color: var(--text-primary); /* 카드 제목 색상 */
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .status-card h3 a { /* 카드 제목 링크 스타일 */
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+        .status-card h3 a:hover {
+            text-decoration: underline;
+        }
+        .status-card .meta-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .status-card .content-text {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.7;
+            white-space: pre-wrap; /* 줄바꿈이 많은 내용에 유용합니다 */
+        }
+
+        /* 이전에 추가되었던 불필요한 중복 스타일 제거 */
+        /*
+        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; margin: 20px; background-color: #f8f9fa; color: #333; }
+        .container { max-width: 900px; margin: 30px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        h1 { color: #0056b3; text-align: center; margin-bottom: 30px; font-size: 2em; }
+        .update-list { border-top: 2px solid #eee; padding-top: 15px; }
+        .update-item { border-bottom: 1px dashed #ddd; padding: 15px 0; margin-bottom: 15px; }
+        .update-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .update-item h2 { margin-top: 0; margin-bottom: 10px; color: #34495e; font-size: 1.5em; }
+        .update-item p { margin-bottom: 8px; line-height: 1.6; color: #555; }
+        .update-item .meta { font-size: 0.85em; color: #7f8c8d; text-align: right; }
+        .meta strong { color: #2c3e50; }
+        .no-data { text-align: center; color: #999; padding: 50px; font-size: 1.2em; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        */
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo"><a href="{% url 'home' %}">이든길</a></div>
+            <nav>
+                <a href="{% url 'emergency_contacts' %}">비상 연락 기관</a>
+                <a href="{% url 'daily_status' %}" class="active">안전관리 일일상황</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="page-header">
+                <h1>안전관리 일일상황</h1>
+                <p>실시간 재난문자, 안전뉴스 등의 최신 정보를 확인합니다.</p>
+            </header>
+
+            <div class="status-list">
+                {% for update in updates %}
+                    <div class="status-card">
+                        <h3>
+                            {% if update.original_url %}
+                                <a href="{{ update.original_url }}" target="_blank" rel="noopener noreferrer">
+                                    {{ update.title }}
+                                </a>
+                            {% else %}
+                                {{ update.title }}
+                            {% endif %}
+                        </h3>
+                        <p class="meta-info">출처: {{ update.source }} | 수신: {{ update.received_at|date:"Y년 m월 d일 H:i" }}</p>
+                        <p class="content-text">{{ update.content|linebreaksbr }}</p>
+                    </div>
+                {% empty %}
+                    <div class="placeholder-text">
+                        <p>아직 수신된 정보가 없습니다.</p>
+                        <p>자동화 봇이 곧 새로운 소식을 가져올 것입니다.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

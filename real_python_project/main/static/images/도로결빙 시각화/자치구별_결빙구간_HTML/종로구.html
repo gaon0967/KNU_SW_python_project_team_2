@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_887f52c22360484867868d93e630d045 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_887f52c22360484867868d93e630d045" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_887f52c22360484867868d93e630d045 = L.map(
+                "map_887f52c22360484867868d93e630d045",
+                {
+                    center: [37.5665, 126.978],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_adc741a962d9db09e65d9d1aea5be794 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_adc741a962d9db09e65d9d1aea5be794.addTo(map_887f52c22360484867868d93e630d045);
+        
+    
+            var poly_line_76e798e7ebb70e27445804bf13177fb2 = L.polyline(
+                [[37.5924643, 126.9660523], [37.5925276, 126.9658575], [37.5927687, 126.9658085], [37.5929635, 126.9656879], [37.5931356, 126.9656573], [37.593389, 126.9659139], [37.5939874, 126.9678905], [37.5950677, 126.9698005], [37.5962771, 126.9728791], [37.5963886, 126.9728506], [37.5966917, 126.9731895], [37.5971969, 126.9737314], [37.5999153, 126.9727397], [37.6004149, 126.9757345], [37.6010912, 126.9759106], [37.6011209, 126.97587], [37.6015093, 126.9777086], [37.6079995, 126.9767873], [37.6082509, 126.9766293], [37.6083913, 126.9765057], [37.6019583, 126.9809541], [37.6019557, 126.9809192], [37.6019071, 126.9809376], [37.6018818, 126.980804], [37.6017272, 126.9805686]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_887f52c22360484867868d93e630d045);
+        
+    
+        var popup_57ffa063e458a5a2118a5a8a78524ad7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_40642cc39fabad2dab5baef19b7808ea = $(`<div id="html_40642cc39fabad2dab5baef19b7808ea" style="width: 100.0%; height: 100.0%;">북악산로</div>`)[0];
+                popup_57ffa063e458a5a2118a5a8a78524ad7.setContent(html_40642cc39fabad2dab5baef19b7808ea);
+            
+        
+
+        poly_line_76e798e7ebb70e27445804bf13177fb2.bindPopup(popup_57ffa063e458a5a2118a5a8a78524ad7)
+        ;
+
+        
+    
+    
+            var poly_line_cccc13a1ff45793dbf159ad5f182a631 = L.polyline(
+                [[37.5748771, 126.9675601], [37.5755874, 126.9657414], [37.5757825, 126.9656209], [37.5761253, 126.9655289], [37.5787004, 126.9633159], [37.5792479, 126.9624102], [37.5803121, 126.9621362], [37.58218, 126.96148], [37.5837604, 126.9617842], [37.5867382, 126.9638853], [37.5891922, 126.9649177], [37.5908679, 126.9657487], [37.5909857, 126.9665689], [37.5921584, 126.9673083], [37.592209, 126.9673697], [37.5924643, 126.9660523]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_887f52c22360484867868d93e630d045);
+        
+    
+        var popup_5254702629ca0bcaa4df62e76a8af35d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2460a9e27005caa8a2db07c203b0ff24 = $(`<div id="html_2460a9e27005caa8a2db07c203b0ff24" style="width: 100.0%; height: 100.0%;">인왕산로</div>`)[0];
+                popup_5254702629ca0bcaa4df62e76a8af35d.setContent(html_2460a9e27005caa8a2db07c203b0ff24);
+            
+        
+
+        poly_line_cccc13a1ff45793dbf159ad5f182a631.bindPopup(popup_5254702629ca0bcaa4df62e76a8af35d)
+        ;
+
+        
+    
+    
+            map_887f52c22360484867868d93e630d045.fitBounds(
+                [[37.5924643, 126.9660523], [37.5925276, 126.9658575], [37.5927687, 126.9658085], [37.5929635, 126.9656879], [37.5931356, 126.9656573], [37.593389, 126.9659139], [37.5939874, 126.9678905], [37.5950677, 126.9698005], [37.5962771, 126.9728791], [37.5963886, 126.9728506], [37.5966917, 126.9731895], [37.5971969, 126.9737314], [37.5999153, 126.9727397], [37.6004149, 126.9757345], [37.6010912, 126.9759106], [37.6011209, 126.97587], [37.6015093, 126.9777086], [37.6079995, 126.9767873], [37.6082509, 126.9766293], [37.6083913, 126.9765057], [37.6019583, 126.9809541], [37.6019557, 126.9809192], [37.6019071, 126.9809376], [37.6018818, 126.980804], [37.6017272, 126.9805686], [37.5748771, 126.9675601], [37.5755874, 126.9657414], [37.5757825, 126.9656209], [37.5761253, 126.9655289], [37.5787004, 126.9633159], [37.5792479, 126.9624102], [37.5803121, 126.9621362], [37.58218, 126.96148], [37.5837604, 126.9617842], [37.5867382, 126.9638853], [37.5891922, 126.9649177], [37.5908679, 126.9657487], [37.5909857, 126.9665689], [37.5921584, 126.9673083], [37.592209, 126.9673697], [37.5924643, 126.9660523]],
+                {}
+            );
+        
+</script>
+</html>

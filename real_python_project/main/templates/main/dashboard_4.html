@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>도로결빙 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 팝업 기본 스타일 */
+        .popup {
+            display: none;
+            position: absolute; /* 부모 요소를 기준으로 위치 */
+            top: 0;
+            left: 0;
+            width: 100%; /* 그리드 셀 너비를 가득 채움 */
+            height: 100%; /* 그리드 셀 높이를 가득 채움 */
+            background: #102A43; /* 부모 div와 동일한 배경색 */
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            z-index: 1000; /* 지도 위에 표시되도록 조정 */
+            overflow-y: auto; /* 내용이 길어지면 스크롤 */
+            /* flexbox를 사용하여 내부 요소를 중앙에 정렬하거나 공간을 채우게 할 수 있습니다. */
+            display: flex; /* flexbox 사용 */
+            flex-direction: column; /* 세로 정렬 */
+            justify-content: space-between; /* 내용과 버튼을 위아래로 분리 */
+        }
+        .popup-header {
+            font-weight: bold;
+            font-size: 1.25rem; /* text-xl */
+            margin-bottom: 15px;
+            color: #FFD526; /* 주황색 강조 */
+            text-align: center; /* 제목 중앙 정렬 */
+        }
+        .popup-content {
+            flex-grow: 1; /* 내용이 남은 공간을 채우도록 */
+            overflow-y: auto; /* 내용이 넘치면 스크롤 */
+        }
+        .popup-content ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .popup-content ul li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #E0E0E0;
+        }
+        .popup-close-btn {
+            background: #60FDF4;
+            color: #102A43;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            display: block;
+            margin-top: 20px; /* 버튼 위 여백 */
+            margin-left: auto; /* 오른쪽 정렬 */
+            margin-right: auto; /* 중앙 정렬 (flexbox와 함께) */
+        }
+        .popup-close-btn:hover {
+            background: #243B53;
+            color: #60FDF4;
+            border: 1px solid #60FDF4;
+        }
+        /* 지도 iframe의 최소 높이 설정 (팝업과 균형 맞추기 위해) */
+        .map-iframe-container {
+            min-height: 350px; /* 팝업 높이에 맞춰 조정 */
+        }
+    </style>
+</head>
+<body class="p-6 font-sans text-white" style="background-color: #001A33;">
+
+<header class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 bg-teal-500 rounded-full"></div>
+        <div>
+            <h1 class="text-2xl font-bold">Dashboard</h1>
+            <p class="text-sm text-gray-300" id="today-date">오늘 날짜는 로딩 중...</p>
+        </div>
+    </div>
+    <div>
+        <input type="text" placeholder="Search" class="border rounded-full px-4 py-2 w-60"
+               style="background-color: #243B53;"/>
+    </div>
+</header>
+
+<section class="grid grid-cols-2 gap-6 mb-6">
+    <div class="p-4 h-29 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xl mb-2" style="background-color:#FFEDE8">
+            🔥
+        </div>
+        <h3 class="font-bold text-white">서울시 도로결빙</h3>
+        <p class="text-sm text-gray-300">서울시에서 발생하는 도로결빙에 대해서 알아보세요!</p>
+    </div>
+</section>
+
+<section class="grid grid-cols-[1fr_2fr] gap-4 mb-6 relative"> <div class="p-4 rounded-xl shadow-sm h-full flex flex-col justify-between" style="background-color: #102A43;">
+        <div class="flex-grow">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xl mb-2" style="background-color:#FFEDE8">
+                🔥
+            </div>
+            <div class="text-orange-500 text-xs"> Class 3 Hazardous Materials</div>
+            <h2 class="font-bold mb-1 text-xl">도로 결빙으로부터 안전해지기!</h2>
+            <p class="text-sm text-gray-300">도로결빙 솔루션 제공!</p>
+        </div>
+        <div class="flex justify-end mt-3 h-10">
+            <button class="flex items-center gap-1 px-4 text-sm font-medium text-purple-500 bg-white rounded-md shadow hover:bg-gray-100 transition"
+                    onclick="toggleFreezingGuideline()">
+                Read more>>
+            </button>
+        </div>
+    </div>
+
+    <div class="p-4 rounded-xl shadow-sm map-iframe-container" style="background-color: #102A43;">
+        <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+        <h2 id="freezing-map-title" class="font-bold mb-2">
+            <select id="district-select" class="mb-4 p-2 border rounded" style="background-color: #102A43;">
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강서구">강서구</option>
+                <option value="광진구">광진구</option>
+                <option value="금천구">금천구</option>
+                <option value="노원구">노원구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="동작구">동작구</option>
+                <option value="마포구">마포구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="서초구">서초구</option>
+                <option value="송파구">송파구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="은평구">은평구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="중랑구">중랑구</option>
+            </select>
+            결빙 구간 지도</h2>
+        <div class="text-black h-80 bg-gray-200 flex items-center justify-center">
+            <iframe id="district-page" src="/static/images/도로결빙 시각화/자치구별_결빙구간_HTML/강남구.html" class="w-full h-full border-0"></iframe>
+        </div>
+    </div>
+
+    <div id="freezingGuidelinePopup" class="popup">
+        <div class="popup-header">❄️ 도로결빙 주의하는 방법 ❄️</div>
+        <div class="popup-content">
+            <ul>
+                <li>**감속 운전:** 빙판길에서는 평소보다 20~50% 이상 감속해야 합니다.</li>
+                <li>**안전거리 확보:** 평소보다 2배 이상 충분한 안전거리를 유지하세요.</li>
+                <li>**급조작 금지:** 급출발, 급가속, 급제동, 급핸들 조작은 피해야 합니다.</li>
+                <li>**미끄럼 방지 장비:** 스노체인, 스노타이어 등 미끄럼 방지 장비를 준비하세요.</li>
+                <li>**블랙 아이스 주의:** 육안으로 식별하기 어려운 블랙 아이스를 특히 조심해야 합니다. (교량 위, 터널 출입구, 응달진 곳)</li>
+                <li>**대중교통 이용:** 가급적 대중교통을 이용하는 것이 안전합니다.</li>
+            </ul>
+        </div>
+        <button class="popup-close-btn" onclick="closeFreezingGuideline()">닫기</button>
+    </div>
+</section>
+
+<section class="grid grid-cols-2 gap-4 mb-6">
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">시간대별 사고구성비</h2>
+        <div class="text-black mt-8 h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/도로결빙 시각화/선그래프_시간대별_사고구성비_1.png"
+                 alt="시간대별 사고구성비" class="h-full object-contain"/>
+        </div>
+    </div>
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">시간대별 결빙 & 결빙 외 사고 구성비</h2>
+        <div class="text-black mt-8 h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/도로결빙 시각화/히트맵_시간대별_사고구성비.png"
+                 alt="결빙&결빙외" class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<section class="grid grid-cols-[1.2fr_1.2fr_1fr] gap-4">
+    <div class=" p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">도로상태별 치사율</h2>
+        <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+        <div class="text-black h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/도로결빙 시각화/최근 5년간 도로상태별 치사율 막대그래프/도로상태별_치사율_막대그래프.png"
+                 alt="도로상태별 치사율" class="h-full object-contain"/>
+        </div>
+    </div>
+
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">서울시 노면상태별 치사율</h2>
+        <p class="text-sm text-gray-500 mb-2">2020년-2025년 기준</p>
+        <div class="text-black h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/도로결빙 시각화/최근 5년간 도로상태별 치사율 막대그래프/서울시_노면상태별_치사율_막대그래프.png"
+                 alt="서울시 노면상태별 치사율" class="h-full object-contain"/>
+        </div>
+    </div>
+
+    <div class="p-4 rounded-xl shadow-sm" style="background-color: #102A43;">
+        <h2 class="font-bold mb-2">도로 종류별 사고 치사율 비교</h2>
+        <p class="text-sm text-gray-500 mb-2">전국</p>
+        <div class="text-black h-80 bg-gray-200 flex items-center justify-center">
+            <img src="/static/images/도로결빙 시각화/도로종류별_치사율_이중막대그래프.png"
+                 alt="월별 평균 강수량" class="h-full object-contain"/>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'home' %}">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded">홈 화면으로 이동</button>
+</a>
+
+</body>
+<script>
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+
+    const dateString = `오늘 날짜는 ${year}년 ${month}월 ${day}일입니다.`;
+    document.getElementById("today-date").textContent = dateString;
+
+    const page = document.getElementById('district-page');
+    const select = document.getElementById('district-select');
+
+    select.addEventListener('change', function () {
+        const districtName = this.value;
+        page.src = `/static/images/도로결빙 시각화/자치구별_결빙구간_HTML/${districtName}.html`;
+        page.alt = `${districtName} 결빙 구간 지도`;
+    });
+
+    // 도로결빙 가이드라인 팝업 토글 함수
+    function toggleFreezingGuideline() {
+        const popup = document.getElementById("freezingGuidelinePopup");
+        // 팝업을 해당 그리드 셀의 크기에 맞게 표시
+        popup.style.display = popup.style.display === "none" ? "flex" : "none"; // flex로 변경
+    }
+
+    // 도로결빙 가이드라인 팝업 닫기 함수
+    function closeFreezingGuideline() {
+        document.getElementById("freezingGuidelinePopup").style.display = "none";
+    }
+</script>
+
+</html>

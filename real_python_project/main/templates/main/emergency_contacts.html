@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비상 연락 기관 - 이든길</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nunito+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [수정됨] 다크 테마 색상 변수 */
+        :root {
+            --bg-color: #121212;
+            --sidebar-color: #1A1A1A;
+            --card-color: #1E1E1E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #AAAAAA;
+            --border-color: #2A2A2A;
+            --accent-green: #3DFFB5;
+            --accent-pink: #FB72FF;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .wrapper { display: flex; }
+        
+        /* [수정됨] 사이드바 스타일 */
+        .sidebar {
+            width: 240px; 
+            height: 100vh; 
+            background: var(--sidebar-color);
+            padding: 32px 24px; 
+            position: fixed; 
+            border-right: 1px solid var(--border-color);
+        }
+        .sidebar .logo a {
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            font-family: 'Nunito Sans', sans-serif;
+            margin-bottom: 3rem; 
+            display: block;
+            color: var(--text-primary); 
+            text-decoration: none;
+        }
+        .sidebar nav a {
+            display: block; 
+            margin: 20px 0; 
+            font-size: 1rem;
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        .sidebar nav a:hover { 
+            color: var(--accent-green); 
+        }
+        
+        .content {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            padding: 50px 60px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+        }
+
+        /* [수정됨] 광역 지자체 섹션 스타일 */
+        .province-section {
+            margin-bottom: 40px;
+        }
+
+        .province-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: var(--card-color);
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+        .province-header:hover {
+            border-color: var(--accent-pink);
+        }
+
+        .province-name a {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        /* [수정됨] 기초 지자체 그리드 스타일 */
+        .district-grid {
+            padding: 25px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 15px;
+        }
+        
+        .district-item a {
+            display: inline-block;
+            padding: 8px 15px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease-in-out;
+        }
+        .district-item a:hover {
+            background-color: var(--accent-green);
+            color: #000;
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo"><a href="{% url 'home' %}">이든길</a></div>
+            <nav>
+                <a href="{% url 'emergency_contacts' %}">비상 연락 기관</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="page-header">
+                <h1>Emergency Contacts</h1>
+                <p>전국 재난 대응 및 비상 연락 기관 목록입니다.</p>
+            </header>
+
+            {% if agencies_by_province %}
+                {% for province_name, data in agencies_by_province.items %}
+                <section class="province-section">
+                    
+                    {% with province_info=data.province_data %}
+                    {% if province_info %}
+                    <div class="province-header">
+                        <h2 class="province-name">
+                            <a href="{{ province_info.website_url }}" target="_blank" rel="noopener noreferrer">
+                                {{ province_name }}
+                            </a>
+                        </h2>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% if data.districts %}
+                    <div class="district-grid">
+                        {% for district in data.districts %}
+                        <div class="district-item">
+                            <a href="{{ district.website_url }}" target="_blank" rel="noopener noreferrer">
+                                {{ district.agency_name }}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </section>
+                {% endfor %}
+            {% else %}
+                <p>표시할 데이터가 없습니다. 스크래핑 스크립트를 실행하여 'emergency_agencies.db' 파일을 생성했는지 확인해주세요.</p>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+.v2_8419 {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.v2_8421 {
+  width: 280px; /* 너비는 필요에 따라 조정 */
+  height: 100vh;
+  padding: 0; /* 내부 여백 제거 */
+  margin: 0;  /* 외부 여백 제거 */
+  position : relative;
+  background-color  : #222;
+  z-index:2;
+
+  display:flex;
+  flex-direction: column;
+}
+
+
+/* 공통 사이드바 아이템 박스 */
+.sidebar-item {
+  width: 240px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+
+  left: 0;
+  margin: 12px;
+
+   text-decoration: none; /* 밑줄 없애기 */
+  color: inherit; /* 글씨 색 유지 */
+  cursor: pointer; /* 마우스 올리면 포인터 모양 */
+}
+
+/* 공통 아이콘 박스 */
+.icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 아이콘 내부 이미지 */
+.icon-img {
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* 텍스트 공통 스타일 */
+.sidebar-text {
+  width: 196px;
+  color: #fff;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 12px;
+}
+
+
+
+/* 고유 배경색 */
+.bg-yellow {
+  background: #fac52e;
+}
+.bg-purple {
+  background: #695cfb;
+}
+.bg-green {
+  background: #0ec979;
+}
+.bg-blue {
+  background: #00c6f2;
+}
+.bg-orange {
+  background: #f6a23b;
+}
+.bg-red {
+  background: #f75d5f;
+}
+
+/* 예: 로고 */
+.v2_8422 {
+  width: 240px;
+  height: 256px;
+  background: url("../images/v2_8422.png") center center / cover no-repeat;
+  position: absolute;
+  top: 49px;
+  left: 24px;
+  margin: 24px;
+}
+
+/* 각 아이콘별 위치 (top 값만 다름) */
+.item-1 {
+  top: 0px;
+}
+.item-2 {
+  top: 56px;
+}
+.item-3 {
+  top: 112px;
+}
+.item-4 {
+  top: 168px;
+}
+.item-5 {
+  top: 224px;
+}
+.item-6 {
+  margin-top: auto;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* 지반침하 */
+.icon-1 {
+  background-image: url("../images/지반침하.png");
+}
+/* 교통사고 */
+.icon-2 {
+  background-image: url("../images/교통사고.png");
+}
+/* 상습 침수 구역 */
+.icon-3 {
+  background-image: url("../images/상습 침수 구역.png");
+}
+/* 도로 결빙 구역 */
+.icon-4 {
+  background-image: url("../images/도로 결빙 구역.png");
+}
+/* 이든길이란? */
+.icon-5 {
+  background-image: url("../images/'이든길'이란.png");
+}
+/* 우리 지역 어쩌고 */
+.icon-6 {
+  background-image: url("../images/우리 지역 안전도 테스트.png");
+}
+
+.main-content {
+  flex-grow: 1;
+  height: 100vh;
+  background-color: white; /* 중앙 배경색 */
+  padding: 20px; /* 필요하면 조정 가능 */
+  box-sizing: border-box;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eden-center {
+  text-align: center;
+  max-width: 700px;
+  width: 90%;
+  transform: translateY(-30%);
+}
+
+.eden-greeting {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.eden-input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.eden-input {
+  padding: 16px 20px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 70%;
+}
+
+.eden-button {
+  padding: 16px 24px;
+  background-color: #fac52e;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+
+.eden-button:hover {
+  background-color: #f0b900;
+}
+
+.eden-guide-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  width: 200px;
+  height: 60px;
+  background-color: #f75d5f;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.eden-guide-button:hover {
+  background-color: #d23f3f;
+  cursor: pointer;
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1a9d65da43627261c816f4867b197211 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_1a9d65da43627261c816f4867b197211" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1a9d65da43627261c816f4867b197211 = L.map(
+                "map_1a9d65da43627261c816f4867b197211",
+                {
+                    center: [37.5665, 126.978],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_bd9a3bf2935594c242193a27253b774a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_bd9a3bf2935594c242193a27253b774a.addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+            var poly_line_9c2f5b5a59103e8fb06efd4172a2519e = L.polyline(
+                [[37.5751133, 126.9266918], [37.5749422, 126.926816], [37.5747464, 126.9270109], [37.5745805, 126.9271192], [37.5743978, 126.9272676], [37.5742299, 126.9274036], [37.5739419, 126.9276358], [37.5739023, 126.9276674], [37.5734785, 126.9280063], [37.5729421, 126.9284552], [37.572849, 126.9285297], [37.5727563, 126.928606], [37.572211, 126.9291145], [37.5712426, 126.9299232], [37.5709638, 126.9301684], [37.5708257, 126.9302898], [37.5705757, 126.9305063], [37.57027, 126.93077], [37.5695, 126.93142], [37.5694304, 126.9314769], [37.5691072, 126.9317414], [37.5691523, 126.931777], [37.5687377, 126.9322696]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_314e2689999444ac9015c79bf0ec939f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b79e9b8f8b8609c1db0045089327b965 = $(`<div id="html_b79e9b8f8b8609c1db0045089327b965" style="width: 100.0%; height: 100.0%;">증가로</div>`)[0];
+                popup_314e2689999444ac9015c79bf0ec939f.setContent(html_b79e9b8f8b8609c1db0045089327b965);
+            
+        
+
+        poly_line_9c2f5b5a59103e8fb06efd4172a2519e.bindPopup(popup_314e2689999444ac9015c79bf0ec939f)
+        ;
+
+        
+    
+    
+            var poly_line_6ba67af2f750307280f05fb43687f658 = L.polyline(
+                [[37.5642807, 126.9289412], [37.5641193, 126.9290668], [37.563951, 126.9292929], [37.5638578, 126.9295287], [37.5635045, 126.9302889]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_7570c3cf55e84cbe7cfe1fb8c2a94cee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4aea4f75d37f05a8560f77c58eefa605 = $(`<div id="html_4aea4f75d37f05a8560f77c58eefa605" style="width: 100.0%; height: 100.0%;">성산로</div>`)[0];
+                popup_7570c3cf55e84cbe7cfe1fb8c2a94cee.setContent(html_4aea4f75d37f05a8560f77c58eefa605);
+            
+        
+
+        poly_line_6ba67af2f750307280f05fb43687f658.bindPopup(popup_7570c3cf55e84cbe7cfe1fb8c2a94cee)
+        ;
+
+        
+    
+    
+            var poly_line_3251725040ec8e214288c058262ab080 = L.polyline(
+                [[37.5803108, 126.9334181], [37.5804553, 126.9331691], [37.580504, 126.9330854], [37.580973, 126.9326943], [37.5811954, 126.9322433], [37.5813579, 126.9320113], [37.5826678, 126.9306198], [37.5831684, 126.9301619], [37.5833087, 126.9302853], [37.5842142, 126.9289978], [37.5849715, 126.9285426], [37.5858276, 126.927333], [37.585928, 126.9270861]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_b45c19a532ea9c3a5b571939760e47aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_72861d01dead0f93cc7ee79b911788c0 = $(`<div id="html_72861d01dead0f93cc7ee79b911788c0" style="width: 100.0%; height: 100.0%;">백련사길</div>`)[0];
+                popup_b45c19a532ea9c3a5b571939760e47aa.setContent(html_72861d01dead0f93cc7ee79b911788c0);
+            
+        
+
+        poly_line_3251725040ec8e214288c058262ab080.bindPopup(popup_b45c19a532ea9c3a5b571939760e47aa)
+        ;
+
+        
+    
+    
+            var poly_line_290130f320e831dd0976392376bcb1fe = L.polyline(
+                [[37.582738, 126.937436], [37.5829386, 126.937716], [37.5831029, 126.9379452], [37.583245, 126.9381434], [37.5833564, 126.938299], [37.5834529, 126.9384336], [37.5838166, 126.9389559], [37.5839273, 126.9391525], [37.5839478, 126.9406038], [37.5838963, 126.9410926], [37.5839018, 126.9412439], [37.5839788, 126.9418022], [37.5842436, 126.9431419], [37.5842521, 126.9431927], [37.5844229, 126.9437315], [37.5850068, 126.9442517], [37.5852857, 126.9449946], [37.58548, 126.94567], [37.5856738, 126.9460223], [37.5859459, 126.9465164], [37.5860776, 126.9467327]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_25f3c1a6256a195a2045bd21c1923836 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b389999dc642e6080ef91eb597d00436 = $(`<div id="html_b389999dc642e6080ef91eb597d00436" style="width: 100.0%; height: 100.0%;">모래내로</div>`)[0];
+                popup_25f3c1a6256a195a2045bd21c1923836.setContent(html_b389999dc642e6080ef91eb597d00436);
+            
+        
+
+        poly_line_290130f320e831dd0976392376bcb1fe.bindPopup(popup_25f3c1a6256a195a2045bd21c1923836)
+        ;
+
+        
+    
+    
+            var poly_line_621766a66e130a2e29ee0bad2fb39873 = L.polyline(
+                [[37.5936498, 126.9500871], [37.5934588, 126.9503358], [37.5931249, 126.9507314], [37.5920568, 126.9517271], [37.5911349, 126.952689], [37.5904804, 126.95328]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_b6a21a4a0db9ea94eae64bb457b7ebf9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5b97c981d39564a2dafa482f7e5fc2c0 = $(`<div id="html_5b97c981d39564a2dafa482f7e5fc2c0" style="width: 100.0%; height: 100.0%;">세검정로4길</div>`)[0];
+                popup_b6a21a4a0db9ea94eae64bb457b7ebf9.setContent(html_5b97c981d39564a2dafa482f7e5fc2c0);
+            
+        
+
+        poly_line_621766a66e130a2e29ee0bad2fb39873.bindPopup(popup_b6a21a4a0db9ea94eae64bb457b7ebf9)
+        ;
+
+        
+    
+    
+            var poly_line_cb221e252806b5a34b657681810f2d8a = L.polyline(
+                [[37.5714986, 126.9590996], [37.5714664, 126.9591181], [37.5716435, 126.9595293], [37.5717443, 126.9596904], [37.5720637, 126.9597613], [37.5716249, 126.9590351], [37.5721022, 126.958528], [37.5724873, 126.958366], [37.5727198, 126.9559151]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_1a9d65da43627261c816f4867b197211);
+        
+    
+        var popup_641b13972e715ca6381d86a2df17ee01 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bf202dde55681f41e50f73ff78256f37 = $(`<div id="html_bf202dde55681f41e50f73ff78256f37" style="width: 100.0%; height: 100.0%;">독립문공원길</div>`)[0];
+                popup_641b13972e715ca6381d86a2df17ee01.setContent(html_bf202dde55681f41e50f73ff78256f37);
+            
+        
+
+        poly_line_cb221e252806b5a34b657681810f2d8a.bindPopup(popup_641b13972e715ca6381d86a2df17ee01)
+        ;
+
+        
+    
+    
+            map_1a9d65da43627261c816f4867b197211.fitBounds(
+                [[37.5751133, 126.9266918], [37.5749422, 126.926816], [37.5747464, 126.9270109], [37.5745805, 126.9271192], [37.5743978, 126.9272676], [37.5742299, 126.9274036], [37.5739419, 126.9276358], [37.5739023, 126.9276674], [37.5734785, 126.9280063], [37.5729421, 126.9284552], [37.572849, 126.9285297], [37.5727563, 126.928606], [37.572211, 126.9291145], [37.5712426, 126.9299232], [37.5709638, 126.9301684], [37.5708257, 126.9302898], [37.5705757, 126.9305063], [37.57027, 126.93077], [37.5695, 126.93142], [37.5694304, 126.9314769], [37.5691072, 126.9317414], [37.5691523, 126.931777], [37.5687377, 126.9322696], [37.5642807, 126.9289412], [37.5641193, 126.9290668], [37.563951, 126.9292929], [37.5638578, 126.9295287], [37.5635045, 126.9302889], [37.5803108, 126.9334181], [37.5804553, 126.9331691], [37.580504, 126.9330854], [37.580973, 126.9326943], [37.5811954, 126.9322433], [37.5813579, 126.9320113], [37.5826678, 126.9306198], [37.5831684, 126.9301619], [37.5833087, 126.9302853], [37.5842142, 126.9289978], [37.5849715, 126.9285426], [37.5858276, 126.927333], [37.585928, 126.9270861], [37.582738, 126.937436], [37.5829386, 126.937716], [37.5831029, 126.9379452], [37.583245, 126.9381434], [37.5833564, 126.938299], [37.5834529, 126.9384336], [37.5838166, 126.9389559], [37.5839273, 126.9391525], [37.5839478, 126.9406038], [37.5838963, 126.9410926], [37.5839018, 126.9412439], [37.5839788, 126.9418022], [37.5842436, 126.9431419], [37.5842521, 126.9431927], [37.5844229, 126.9437315], [37.5850068, 126.9442517], [37.5852857, 126.9449946], [37.58548, 126.94567], [37.5856738, 126.9460223], [37.5859459, 126.9465164], [37.5860776, 126.9467327], [37.5936498, 126.9500871], [37.5934588, 126.9503358], [37.5931249, 126.9507314], [37.5920568, 126.9517271], [37.5911349, 126.952689], [37.5904804, 126.95328], [37.5714986, 126.9590996], [37.5714664, 126.9591181], [37.5716435, 126.9595293], [37.5717443, 126.9596904], [37.5720637, 126.9597613], [37.5716249, 126.9590351], [37.5721022, 126.958528], [37.5724873, 126.958366], [37.5727198, 126.9559151]],
+                {}
+            );
+        
+</script>
+</html>
