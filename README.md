@@ -17,7 +17,7 @@ git clone https://github.com/gaon0967/KNU_SW_python_project_team_2.git
 2. 가상환경 생성 및 활성화
 ```
 python -m venv venv
-source venv/bin/activate
+venv\Scripts\activate.bat
 ```
 3. 의존성 설치
 ```
