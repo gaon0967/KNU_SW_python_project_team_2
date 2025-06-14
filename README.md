@@ -124,52 +124,55 @@ python manage.py runserver
 ```
 data_B_project/  
 ├── .venv/  
-│ └── 💡 가상환경 (패키지 충돌 방지 및 협업 목적)  
-│ - 필요한 라이브러리만 설치 가능  
-│ - requirements.txt로 공유 및 관리 용이  
+│   └── 💡 가상환경 (패키지 충돌 방지 및 협업 목적)  
+│       - 필요한 라이브러리만 설치 가능  
+│       - requirements.txt로 공유 및 관리 용이  
 
 ├── data/  
-│ ├── people/ 📊 서울시 자치구별 인구수  
-│ ├── traffic accident/ 🚗 교통사고 연도별 Excel (2019~2023)  
-│ ├── Traffic light/ 🚦 신호등 및 횡단보도 위치  
-│ └── 기타 참고 데이터 포함  
-
-├── dataAnalysis1.ipynb  
-│ └── 📈 초기 데이터 분석용 Jupyter 노트북 (pandas, 시각화, 병합 등 실험)  
-
-├── ngrok/  
-│ └── 🌐 ngrok 실행 및 설정  
-│ ① make.com 워크플로우용 웹훅 연동  
-│ ② 외부 접근 가능한 임시 URL 제공  
-│ ③ 로컬 서버 테스트 자동화를 위한 브리지 역할  
-
-├── emergency_contacts_to_sqlite.py  
-│ └── 🚑 응급기관 JSON → SQLite 저장 스크립트  
-│ - 행정안전부 API 기반 254개 기관 정보 수집  
+│   ├── people/ 📊 서울시 자치구별 인구수  
+│   ├── traffic accident/ 🚗 교통사고 연도별 Excel (2019~2023)  
+│   ├── Traffic light/ 🚦 신호등 및 횡단보도 위치  
+│   └── 기타 참고 데이터 포함  
 
 ├── real_python_project/  
-│ ├── db.sqlite3 📦 기본 장고 DB  
-│ ├── emergency_agencies.db 🏥 응급기관 DB  
-│ ├── final_merged_with_coords.csv ✅ 병합 완료된 최종 CSV  
-│ 
-│ ├── main/ 💻 Django 앱 구성  
-│ │ ├── models.py 모델 정의 (Post, DailyUpdate 등)  
-│ │ ├── views.py 요청 처리, API 연동  
-│ │ ├── forms.py 사용자 입력 폼  
-│ │ ├── model_utils.py 자치구 위험도 예측 함수  
-│ │ ├── model_trainer.py모델 학습 + joblib 저장  
-│ │ ├── templates/main/ 템플릿 HTML  
-│ │ │ ├── community.html, dashboard_1~4.html, quiz_start.html, rehome.html 등  
-│ │ ├── static/images/ 분석 결과 시각화 이미지  
-│ │ └── migrations/ DB 마이그레이션  
+│   ├── db.sqlite3 📦 기본 장고 DB  
+│   ├── emergency_agencies.db 🏥 응급기관 DB  
+│   ├── final_merged_with_coords.csv ✅ 병합 완료된 최종 CSV  
 
-│ ├── scraper.py 📰 행정안전부 보도자료 크롤링  
-│ ├── model_utils.py 예측 수행 + 설명 반환  
-│ ├── model_trainer.py XGBoost 학습 후 저장  
-│ ├── xgb_model.pkl 저장된 모델  
+│   ├── dataAnalysis1.ipynb  
+│   │   └── 📈 초기 데이터 분석용 Jupyter 노트북 (pandas, 시각화, 병합 등 실험)  
 
-├── requirements.txt 📦 필요한 패키지 목록  
-└── README.md 📘 프로젝트 설명, 실행 방법, 구성도
+│   ├── ngrok/  
+│   │   └── 🌐 ngrok 실행 및 설정  
+│   │       ① make.com 워크플로우용 웹훅 연동  
+│   │       ② 외부 접근 가능한 임시 URL 제공  
+│   │       ③ 로컬 서버 테스트 자동화를 위한 브리지 역할  
+
+│   ├── emergency_contacts_to_sqlite.py  
+│   │   └── 🚑 응급기관 JSON → SQLite 저장 스크립트  
+│   │       - 행정안전부 API 기반 254개 기관 정보 수집  
+
+│   ├── requirements.txt  
+│   │   └── 📦 필요한 패키지 목록  
+
+│   ├── main/ 💻 Django 앱 구성  
+│   │   ├── models.py 모델 정의 (Post, DailyUpdate 등)  
+│   │   ├── views.py 요청 처리, API 연동  
+│   │   ├── forms.py 사용자 입력 폼  
+│   │   ├── model_utils.py 자치구 위험도 예측 함수  
+│   │   ├── model_trainer.py 모델 학습 + joblib 저장  
+│   │   ├── templates/main/ 템플릿 HTML  
+│   │   │   ├── community.html, dashboard_1~4.html, quiz_start.html, rehome.html 등  
+│   │   ├── static/images/ 분석 결과 시각화 이미지  
+│   │   └── migrations/ DB 마이그레이션  
+
+│   ├── scraper.py 📰 행정안전부 보도자료 크롤링  
+│   ├── model_utils.py 예측 수행 + 설명 반환  
+│   ├── model_trainer.py XGBoost 학습 후 저장  
+│   ├── xgb_model.pkl 저장된 모델  
+
+├── README.md 📘 프로젝트 설명, 실행 방법, 구성도  
+
 ```
 </details>
 
