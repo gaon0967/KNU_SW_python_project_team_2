@@ -32,6 +32,8 @@ MAKE_API_KEY=필요 시 입력
 ```
 5. 서버 실행
 ```
+python manage.py makemigrations
+python manage.py migrate
 python manage.py runserver
 ```
 
