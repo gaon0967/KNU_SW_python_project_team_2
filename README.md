@@ -29,6 +29,10 @@ pip install -r requirements.txt
 DJANGO_SECRET_KEY=임의의 문자열
 DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
 MAKE_API_KEY=필요 시 입력
+SEOUL_API_KEY=임의의 문자열
+ODCLOUD_SERVICE_KEY=임의의 문자열
+ODCLOUD_API_URL=임의의 문자열
+SEOUL_ROAD_EXCAVATION_API_KEY=임의의 문자열
 ```
 5. 서버 실행
 ```
