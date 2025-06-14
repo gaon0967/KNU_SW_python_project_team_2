@@ -213,6 +213,10 @@ data_B_project/
   ### 심리테스트
 
   ![심리테스트](ScreenShots/심리테스트.png)
+
+  ### 심리테스트 결과
+
+  ![심리테스트 결과](ScreenShots/심리테스트_결과.png)
 </details>
 
 ---
@@ -516,16 +520,22 @@ data_B_project/
   매일 실시간으로 최신 재난 정보를 사용자에게 제공할 수 있는 **자동화된 데이터 파이프라인 구축**에 성공
   <details>
     <summary>🖥️ 구성 화면</summary>
+    
+    ### MCP
 
     ![MCP 워크플로우1](ScreenShots/MCP.png)
 
     ![MCP 워크플로우2](ScreenShots/mcp(1).png)
 
-  ![MCP 워크플로우3](ScreenShots/mcp(2).png)
+    ![MCP 워크플로우3](ScreenShots/mcp(2).png)
 
-  ![MCP 워크플로우3](ScreenShots/mcp(3).png)
+    ![MCP 워크플로우3](ScreenShots/mcp(3).png)
 
-  ![MCP 워크플로우4](ScreenShots/mcp(4).png)
+    ![MCP 워크플로우4](ScreenShots/mcp(4).png)
+
+    ### ngrok
+  
+    ![ngrok](ScreenShots/ngrok.png)
   </details>
   
 </details>
@@ -537,14 +547,17 @@ data_B_project/
   서울시 25개의 자치구의 교통사고 발생 건수를 예측하는 **머신러닝 기반 모델**을 구현하여, 사용자에게 **지역별 사고 위험도 정보**를 제공할 수 있도록 하였습니다.  
 - **모델 구현 과정**:  
   - 인구, 사망/부상자 수, 신호등/횡단보도 수 등 다양한 데이터를 `merged_df.csv`로 통합  
-  - `XGBoost` 모델 학습 및 `feature_importances_`속성으로 변수 중요도 시각화  
-  - 예측 결과를 Django 웹과 연동하여 사용자 입력에 따라 실시간 출력  
+  - `XGBoost` 모델 학습 및 `feature_importances_`속성으로 변수 중요도 시각화
+  - ![XGBoost](ScreenShots/XGBoost.png)
+  - 예측 결과를 Django 웹과 연동하여 사용자 입력에 따라 실시간 출력
+  
 - **웹페이지 기능**:  
   - 입력된 자치구의 **예측 교통사고 건수 출력**  
   - 서울 전체 중 해당 자치구의 **상대 순위 표시**  
   - 예측에 영향을 미친 **주요 요인 시각화 및 설명 제공**
 - **주요 인사이트**:  
   '사망자 수', '부상자 수'가 높은 중요도를 가지며, '신호등 및 횡단보도 수'는 예방 관련 요인으로 분석
+  
   
 </details>
 
