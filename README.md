@@ -489,7 +489,7 @@ data_B_project/
 
 ---
 
-### 🌱 추가 구현 기능
+### 🌱 추가 핵심 구현 기능
 <details>
   <summary>📞 1. 전국 단위 재난 대응 비상연락망 구축</summary>
 
