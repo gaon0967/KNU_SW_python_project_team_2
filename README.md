@@ -559,7 +559,7 @@ data_B_project/
 - **모델 구현 과정**:  
   - 인구, 사망/부상자 수, 신호등/횡단보도 수 등 다양한 데이터를 `merged_df.csv`로 통합  
   - `XGBoost` 모델 학습 및 `feature_importances_`속성으로 변수 중요도 시각화
-  - ![XGBoost](ScreenShots/XGBoost.png)
+     ![XGBoost](ScreenShots/XGBoost.png)
   - 예측 결과를 Django 웹과 연동하여 사용자 입력에 따라 실시간 출력
   
 - **웹페이지 기능**:  
@@ -582,7 +582,7 @@ data_B_project/
   - **심리테스트 기능**:  
     - 사용자의 **재난 인식 수준**, **대응 유형** 등을 재미있게 알아볼 수 있도록 설계  
     - 단순 정보 제공을 넘어, **참여 유도형 안전 교육 플랫폼**으로서의 역할 수행
-    - ![심리테스트 결과](ScreenShots/심리테스트_결과.png)
+      ![심리테스트 결과](ScreenShots/심리테스트_결과.png)
 
   
     
